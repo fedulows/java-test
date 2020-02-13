@@ -11,7 +11,7 @@ import java.util.Map;
 import static org.junit.Assert.assertEquals;
 
 public class PercentPromotionTest {
-    private PercentPromotion applesPromotion;
+    private Promotion applesPromotion;
 
     @Before
     public void setup() {
@@ -32,7 +32,7 @@ public class PercentPromotionTest {
         Map<Product, Integer> basketContent = new HashMap<>();
         basketContent.put(Product.MILK, 10);
 
-        assertEquals("Expecting no discount", BigDecimal.ZERO, applesPromotion.calculateDiscount(basketContent));
+        assertEquals("Expecting no discount", BigDecimal.ZERO.setScale(2), applesPromotion.calculateDiscount(basketContent));
     }
 
     @Test

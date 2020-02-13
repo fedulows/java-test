@@ -22,11 +22,9 @@ public class PercentPromotion extends Promotion {
     public BigDecimal calculateDiscount(Map<Product, Integer> basketContent) {
         BigDecimal result = BigDecimal.ZERO;
 
-        Integer productQuantity = basketContent.get(product);
-        if (productQuantity != null) {
-            BigDecimal productPrice = product.getPrice().multiply(BigDecimal.valueOf(productQuantity));
-            result = productPrice.multiply(percentage).setScale(2);
-        }
+        Integer productQuantity = basketContent.getOrDefault(product, 0);
+        BigDecimal productPrice = product.getPrice().multiply(BigDecimal.valueOf(productQuantity));
+        result = productPrice.multiply(percentage).setScale(2);
 
         return result;
     }
