@@ -1,6 +1,7 @@
 package com.test.groceries.model;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.Map;
 
@@ -15,17 +16,13 @@ public class PercentPromotion extends Promotion {
                 endDate);
 
         this.product = product;
-        this.percentage = percetage.divide(BigDecimal.valueOf(100));
+        this.percentage = percetage.divide(BigDecimal.valueOf(100), RoundingMode.HALF_UP);
     }
 
     @Override
     public BigDecimal calculateDiscount(Map<Product, Integer> basketContent) {
-        BigDecimal result = BigDecimal.ZERO;
-
         Integer productQuantity = basketContent.getOrDefault(product, 0);
         BigDecimal productPrice = product.getPrice().multiply(BigDecimal.valueOf(productQuantity));
-        result = productPrice.multiply(percentage).setScale(2);
-
-        return result;
+        return productPrice.multiply(percentage).setScale(2, RoundingMode.HALF_UP);
     }
 }

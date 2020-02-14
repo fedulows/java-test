@@ -4,11 +4,6 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 public class Product {
-    public static final Product SOUP = new Product("soup", BigDecimal.valueOf(0.65), Unit.Tin);
-    public static final Product BREAD = new Product("bread", BigDecimal.valueOf(0.80), Unit.Loaf);
-    public static final Product MILK = new Product("milk", BigDecimal.valueOf(1.30), Unit.Bottle);
-    public static final Product APPLE = new Product("apples", BigDecimal.valueOf(0.10), Unit.Single);
-
     private final String code;
     private final BigDecimal price;
     private final Unit unit;
@@ -33,11 +28,11 @@ public class Product {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
         if (obj == null || Product.class != obj.getClass()) {
             return false;
+        }
+        if (this == obj) {
+            return true;
         }
 
         Product other = (Product) obj;

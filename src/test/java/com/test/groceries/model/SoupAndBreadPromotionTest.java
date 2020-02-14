@@ -1,72 +1,70 @@
 package com.test.groceries.model;
 
+import com.test.groceries.GroceriesMain;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
 public class SoupAndBreadPromotionTest {
-    private static final BigDecimal BREAD_HALF_PRICE = Product.BREAD.getPrice().divide(BigDecimal.valueOf(2)).setScale(2);
-    private Promotion soupAndBreadPromotion;
+    private Promotion promotion;
 
     @Before
     public void setup() {
-        soupAndBreadPromotion = new SoupAndBreadPromotion(
-                LocalDate.now().minusDays(1),
-                LocalDate.now().plusMonths(7));
+        promotion = GroceriesMain.SOUP_AND_BREAD_PROMOTION;
     }
 
     @Test
     public void testNoSoupAdded() {
         Map<Product, Integer> basketContent = new HashMap<>();
-        basketContent.put(Product.APPLE, 10);
-        basketContent.put(Product.BREAD, 1);
+        basketContent.put(GroceriesMain.APPLE, 10);
+        basketContent.put(GroceriesMain.BREAD, 1);
 
-        assertEquals("Expecting no discount", BigDecimal.ZERO.setScale(2), soupAndBreadPromotion.calculateDiscount(basketContent));
+        verifyDiscount(basketContent, 0d, "Expecting no discount");
     }
 
     @Test
     public void testNoBreadAdded() {
         Map<Product, Integer> basketContent = new HashMap<>();
-        basketContent.put(Product.MILK, 1);
-        basketContent.put(Product.SOUP, 2);
+        basketContent.put(GroceriesMain.MILK, 1);
+        basketContent.put(GroceriesMain.SOUP, 2);
 
-        assertEquals("Expecting no discount", BigDecimal.ZERO.setScale(2), soupAndBreadPromotion.calculateDiscount(basketContent));
+        verifyDiscount(basketContent, 0d, "Expecting no discount");
     }
 
     @Test
     public void testNotEnoughSoups() {
         Map<Product, Integer> basketContent = new HashMap<>();
-        basketContent.put(Product.BREAD, 1);
-        basketContent.put(Product.SOUP, 1);
+        basketContent.put(GroceriesMain.BREAD, 1);
+        basketContent.put(GroceriesMain.SOUP, 1);
 
-        assertEquals("Expecting no discount", BigDecimal.ZERO.setScale(2), soupAndBreadPromotion.calculateDiscount(basketContent));
+        verifyDiscount(basketContent, 0d, "Expecting no discount");
     }
 
     @Test
     public void testSingleDiscountApplied() {
         Map<Product, Integer> basketContent = new HashMap<>();
-        basketContent.put(Product.SOUP, 2);
-        basketContent.put(Product.BREAD, 1);
+        basketContent.put(GroceriesMain.SOUP, 2);
+        basketContent.put(GroceriesMain.BREAD, 1);
 
-
-        assertEquals("Expecting bread half price discount", BREAD_HALF_PRICE,
-                soupAndBreadPromotion.calculateDiscount(basketContent));
+        verifyDiscount(basketContent, 0.40d, "Expecting bread half price discount");
     }
 
     @Test
     public void testDiscountAppliedThreeTimes() {
         Map<Product, Integer> basketContent = new HashMap<>();
-        basketContent.put(Product.SOUP, 6);
-        basketContent.put(Product.BREAD, 5);
+        basketContent.put(GroceriesMain.SOUP, 6);
+        basketContent.put(GroceriesMain.BREAD, 5);
 
+        verifyDiscount(basketContent, 1.20d, "Expecting discount applied 3 times");
+    }
 
-        assertEquals("Expecting discount applied 3 times", BREAD_HALF_PRICE.multiply(BigDecimal.valueOf(3)),
-                soupAndBreadPromotion.calculateDiscount(basketContent));
+    private void verifyDiscount(Map<Product, Integer> basketContent, double expected, String message) {
+        BigDecimal discount = promotion.calculateDiscount(basketContent);
+        assertEquals(message, expected, discount.doubleValue(), ShoppingBasketTest.DOUBLE_ASSERT_DELTA);
     }
 }

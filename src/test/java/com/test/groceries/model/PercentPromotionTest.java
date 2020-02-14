@@ -1,10 +1,9 @@
 package com.test.groceries.model;
 
+import com.test.groceries.GroceriesMain;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,11 +14,7 @@ public class PercentPromotionTest {
 
     @Before
     public void setup() {
-        applesPromotion = new PercentPromotion(
-                Product.APPLE,
-                BigDecimal.TEN,
-                LocalDate.now().minusDays(3),
-                LocalDate.now().plusMonths(1));
+        applesPromotion = GroceriesMain.APPLES_PROMOTION;
     }
 
     @Test
@@ -30,19 +25,20 @@ public class PercentPromotionTest {
     @Test
     public void testNoDiscount() {
         Map<Product, Integer> basketContent = new HashMap<>();
-        basketContent.put(Product.MILK, 10);
+        basketContent.put(GroceriesMain.MILK, 10);
 
-        assertEquals("Expecting no discount", BigDecimal.ZERO.setScale(2), applesPromotion.calculateDiscount(basketContent));
+        double discount = applesPromotion.calculateDiscount(basketContent).doubleValue();
+        assertEquals("Expecting no discount", 0, discount, ShoppingBasketTest.DOUBLE_ASSERT_DELTA);
     }
 
     @Test
     public void testCalculateDiscount() {
         Map<Product, Integer> basketContent = new HashMap<>();
-        basketContent.put(Product.APPLE, 50);
-        basketContent.put(Product.MILK, 100);
-        basketContent.put(Product.BREAD, 7);
+        basketContent.put(GroceriesMain.APPLE, 50);
+        basketContent.put(GroceriesMain.MILK, 100);
+        basketContent.put(GroceriesMain.BREAD, 7);
 
-        assertEquals("Expecting 0.50 discount from 50 apples", BigDecimal.valueOf(0.50).setScale(2),
-                applesPromotion.calculateDiscount(basketContent));
+        double discount = applesPromotion.calculateDiscount(basketContent).doubleValue();
+        assertEquals("Expecting 0.50 discount from 50 apples", 0.50d, discount, ShoppingBasketTest.DOUBLE_ASSERT_DELTA);
     }
 }

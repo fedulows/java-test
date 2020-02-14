@@ -21,7 +21,10 @@ public abstract class Promotion {
         return description;
     }
 
-    public boolean isActive(LocalDate currentDate) {
-        return currentDate.isAfter(startDate) && currentDate.isBefore(endDate);
+    public boolean isActive(LocalDate givenDate) {
+        boolean isAfterStartDate = givenDate.isAfter(startDate) || givenDate.isEqual(startDate);
+        boolean isBeforeEndDate = givenDate.isBefore(endDate) || givenDate.isEqual(endDate);
+
+        return isAfterStartDate && isBeforeEndDate;
     }
 }
