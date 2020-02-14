@@ -10,7 +10,7 @@ public class Product {
 
     public Product(String code, BigDecimal price, Unit unit) {
         this.code = code;
-        this.price = price.setScale(2, RoundingMode.HALF_UP);
+        this.price = price.setScale(2);
         this.unit = unit;
     }
 

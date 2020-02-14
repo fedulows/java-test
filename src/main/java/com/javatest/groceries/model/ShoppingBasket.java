@@ -25,6 +25,10 @@ public class ShoppingBasket {
         products.remove(product);
     }
 
+    public void clearBasket() {
+        products.clear();
+    }
+
     public Map<Product, Integer> getProducts() {
         return Collections.unmodifiableMap(products);
     }
@@ -39,7 +43,7 @@ public class ShoppingBasket {
                 .map(promotion -> promotion.calculateDiscount(products))
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
 
-        return total.subtract(discount).setScale(2, RoundingMode.HALF_UP);
+        return total.subtract(discount).setScale(2);
     }
 
     private static BigDecimal calculateProductPrice(Map.Entry<Product, Integer> productAndQuantity) {
