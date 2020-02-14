@@ -1,10 +1,10 @@
-package com.test.groceries;
+package com.javatest.groceries;
 
-import com.test.groceries.model.PercentPromotion;
-import com.test.groceries.model.Product;
-import com.test.groceries.model.Promotion;
-import com.test.groceries.model.SoupAndBreadPromotion;
-import com.test.groceries.model.Unit;
+import com.javatest.groceries.model.PercentPromotion;
+import com.javatest.groceries.model.Product;
+import com.javatest.groceries.model.Promotion;
+import com.javatest.groceries.model.SoupAndBreadPromotion;
+import com.javatest.groceries.model.Unit;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

@@ -1,6 +1,6 @@
-package com.test.groceries.model;
+package com.javatest.groceries.model;
 
-import com.test.groceries.GroceriesMain;
+import com.javatest.groceries.GroceriesMain;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -9,10 +9,10 @@ import java.time.LocalDate;
 import java.util.Collections;
 import java.util.Map;
 
-import static com.test.groceries.GroceriesMain.APPLE;
-import static com.test.groceries.GroceriesMain.BREAD;
-import static com.test.groceries.GroceriesMain.MILK;
-import static com.test.groceries.GroceriesMain.SOUP;
+import static com.javatest.groceries.GroceriesMain.APPLE;
+import static com.javatest.groceries.GroceriesMain.BREAD;
+import static com.javatest.groceries.GroceriesMain.MILK;
+import static com.javatest.groceries.GroceriesMain.SOUP;
 import static org.junit.Assert.assertEquals;
 
 public class ShoppingBasketTest {

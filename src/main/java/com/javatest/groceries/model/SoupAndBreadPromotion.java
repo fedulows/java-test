@@ -1,6 +1,6 @@
-package com.test.groceries.model;
+package com.javatest.groceries.model;
 
-import com.test.groceries.GroceriesMain;
+import com.javatest.groceries.GroceriesMain;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

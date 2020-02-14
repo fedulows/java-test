@@ -1,4 +1,4 @@
-package com.test.groceries.model;
+package com.javatest.groceries.model;
 
 import org.junit.Before;
 import org.junit.Test;
